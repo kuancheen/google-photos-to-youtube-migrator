@@ -1,6 +1,6 @@
 /**
  * Media Migrator - Google Photos to YouTube
- * v0.1.2 Beta
+ * v0.1.3 Beta
  */
 
 const CONFIG = {
@@ -412,7 +412,7 @@ class MediaMigrator {
         }
 
         try {
-            const response = await fetch('https://photoslibrary.googleapis.com/v1/mediaItems:search', {
+            const response = await fetch(`https://photoslibrary.googleapis.com/v1/mediaItems:search?key=${this.apiKey}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${this.accessToken}`,
