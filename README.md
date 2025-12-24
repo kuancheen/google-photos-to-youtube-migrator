@@ -54,8 +54,13 @@ Navigate to **APIs & Services > Credentials**:
 ## Troubleshooting
 
 ### Error 403: access_denied / "App has not completed the Google verification process"
-This occurs because your Google Cloud project is in **Testing** mode (which is recommended for personal use).
-- **Solution**: Go to the **OAuth consent screen** in your [Google Cloud Console](https://console.cloud.google.com/), scroll down to the **Test users** section, and click **+ ADD USERS**. Add your email address (`kuancheen@gmail.com`) and save.
+This occurs because your Google Cloud project is in **Testing** mode.
+- **Solution**: Go to the **OAuth consent screen** in your [Google Cloud Console](https://console.cloud.google.com/), and add your email to the **Test users** section.
+
+### Error 403: Forbidden on `mediaItems:search`
+This occurs after login when the app attempts to fetch your photos.
+- **Solution 1: Enable the API**: Ensure the **Photos Library API** is explicitly enabled in the [API Library](https://console.cloud.google.com/apis/library/photoslibrary.googleapis.com).
+- **Solution 2: Check Scope Box**: During the Google login popup, you **must manually check the box** that says "See and download your Google Photos library". If you skip this, the app will log in but won't have permission to see your photos.
 
 ## Google API Limitations
 

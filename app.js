@@ -344,7 +344,7 @@ class MediaMigrator {
         }
 
         try {
-            const response = await fetch('https://photoslibrary.googleapis.com/v1/mediaItems:search', {
+            const response = await fetch(`https://photoslibrary.googleapis.com/v1/mediaItems:search?key=${this.apiKey}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${this.accessToken}`,
