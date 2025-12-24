@@ -1,7 +1,6 @@
-/**
  * Media Migrator - Google Photos to YouTube
- * v0.1.0 Beta
- */
+    * v0.1.1 Beta
+        */
 
 const CONFIG = {
     SCOPES: 'https://www.googleapis.com/auth/photoslibrary.readonly https://www.googleapis.com/auth/youtube.upload',
@@ -58,6 +57,13 @@ class MediaMigrator {
         this.inputSubmit = document.getElementById('input-modal-submit');
         this.inputCancel = document.getElementById('input-modal-cancel');
         this.inputClose = document.getElementById('input-modal-close');
+
+        this.confirmModal = document.getElementById('confirm-modal');
+        this.confirmTitle = document.getElementById('confirm-modal-title');
+        this.confirmMessage = document.getElementById('confirm-modal-message');
+        this.confirmSubmit = document.getElementById('confirm-modal-submit');
+        this.confirmCancel = document.getElementById('confirm-modal-cancel');
+        this.confirmClose = document.getElementById('confirm-modal-close');
     }
 
     bindEvents() {
@@ -68,6 +74,7 @@ class MediaMigrator {
         window.addEventListener('click', (e) => {
             if (e.target === this.modal) this.closeModal();
             if (e.target === this.inputModal) this.closeInputModal();
+            if (e.target === this.confirmModal) this.closeConfirmModal();
         });
 
         // Esc key to close modals
@@ -75,6 +82,7 @@ class MediaMigrator {
             if (e.key === 'Escape') {
                 this.closeModal();
                 this.closeInputModal();
+                this.closeConfirmModal();
             }
         });
 
@@ -106,8 +114,9 @@ class MediaMigrator {
         this.resetBtn.addEventListener('click', () => this.resetSettings());
     }
 
-    resetSettings() {
-        if (confirm('Are you sure you want to clear your Client ID and API Key? You will need to re-enter them.')) {
+    async resetSettings() {
+        const confirmed = await this.showConfirmModal('Reset Settings', 'Are you sure you want to clear your Client ID and API Key? You will need to re-enter them.');
+        if (confirmed) {
             localStorage.clear();
             location.reload();
         }
@@ -175,6 +184,39 @@ class MediaMigrator {
 
     closeInputModal() {
         this.inputModal.classList.add('hidden');
+    }
+
+    async showConfirmModal(title, message) {
+        return new Promise((resolve) => {
+            this.confirmTitle.textContent = title;
+            this.confirmMessage.textContent = message;
+            this.confirmModal.classList.remove('hidden');
+
+            const handleSubmit = () => {
+                cleanup();
+                resolve(true);
+            };
+
+            const handleCancel = () => {
+                cleanup();
+                resolve(false);
+            };
+
+            const cleanup = () => {
+                this.confirmSubmit.removeEventListener('click', handleSubmit);
+                this.confirmCancel.removeEventListener('click', handleCancel);
+                this.confirmClose.removeEventListener('click', handleCancel);
+                this.closeConfirmModal();
+            };
+
+            this.confirmSubmit.addEventListener('click', handleSubmit);
+            this.confirmCancel.addEventListener('click', handleCancel);
+            this.confirmClose.addEventListener('click', handleCancel);
+        });
+    }
+
+    closeConfirmModal() {
+        this.confirmModal.classList.add('hidden');
     }
 
     async handleAuth() {

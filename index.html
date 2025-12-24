@@ -15,7 +15,7 @@
         content="Seamlessly migrate your videos from Google Photos to YouTube with advanced filtering and batch processing.">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
-    <link rel="stylesheet" href="app.css?v=0.1.0 Beta">
+    <link rel="stylesheet" href="app.css?v=0.1.1 Beta">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -94,7 +94,7 @@
     <footer class="main-footer">
         <div class="footer-content">
             <p>
-                v0.1.0 Beta |
+                v0.1.1 Beta |
                 <a href="https://kuancheen.github.io/md-viewer/?url=https://raw.githubusercontent.com/kuancheen/google-photos-to-youtube-migrator/main/README.md"
                     target="_blank">README</a> |
                 <a href="https://kuancheen.github.io/md-viewer/?url=https://raw.githubusercontent.com/kuancheen/google-photos-to-youtube-migrator/main/CHANGELOG.md"
@@ -128,8 +128,21 @@
         </div>
     </div>
 
+    <!-- Generic Confirmation Modal -->
+    <div id="confirm-modal" class="modal hidden">
+        <div class="modal-content modal-input-container">
+            <span class="modal-close" id="confirm-modal-close">&times;</span>
+            <h3 id="confirm-modal-title">Are you sure?</h3>
+            <p id="confirm-modal-message" style="margin-bottom: 20px; color: var(--text-secondary);"></p>
+            <div class="modal-footer">
+                <button id="confirm-modal-cancel" class="btn btn-text">Cancel</button>
+                <button id="confirm-modal-submit" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="app.js?v=0.1.0 Beta"></script>
+    <script src="app.js?v=0.1.1 Beta"></script>
 </body>
 
 </html>
