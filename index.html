@@ -1,0 +1,121 @@
+<!--
+    Application: Media Migrator
+    Description: Seamlessly migrate your videos from Google Photos to YouTube with advanced filtering and batch processing.
+    Author: Kuan Cheen
+    Copyright: 2025
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Migrator | Google Photos to YouTube</title>
+    <meta name="description"
+        content="Seamlessly migrate your videos from Google Photos to YouTube with advanced filtering and batch processing.">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    <link rel="stylesheet" href="app.css?v=0.0.1 Beta">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="dark-theme">
+    <header class="glass-header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🚀</span>
+                <h1 onclick="location.reload()" style="cursor: pointer">Media Migrator</h1>
+            </div>
+            <div class="auth-section">
+                <button id="auth-btn" class="btn btn-primary">Connect Google Account</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="sidebar" class="glass-panel sidebar hidden">
+            <div class="panel-header">
+                <h2>Filters</h2>
+            </div>
+            <div class="filter-group">
+                <button class="filter-btn active" data-range="1">1 Day</button>
+                <button class="filter-btn" data-range="7">7 Days</button>
+                <button class="filter-btn" data-range="30">30 Days</button>
+                <button class="filter-btn" data-range="all">All Time</button>
+            </div>
+            <div class="toggle-group">
+                <label class="switch">
+                    <input type="checkbox" id="sort-toggle" checked>
+                    <span class="slider"></span>
+                </label>
+                <span id="sort-label">Latest First</span>
+            </div>
+            <div class="stats-card">
+                <div class="stat-item">
+                    <span class="stat-label">Videos Found</span>
+                    <span id="video-count" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Selected</span>
+                    <span id="selected-count" class="stat-value">0</span>
+                </div>
+                <button id="migrate-btn" class="btn btn-primary btn-block" disabled>🚀 Migrate to YouTube</button>
+            </div>
+        </section>
+
+        <section id="content" class="main-content">
+            <div id="media-grid" class="media-grid">
+                <!-- Media items will be injected here -->
+                <div class="empty-state">
+                    <p>Connect your account to browse your Google Photos videos.</p>
+                </div>
+            </div>
+            <div id="pagination-trigger" class="hidden">
+                <button id="load-more-btn" class="btn btn-secondary">Load More</button>
+            </div>
+        </section>
+
+        <section id="migration-log" class="glass-panel log-panel hidden">
+            <div class="panel-header">
+                <h2>Migration Status</h2>
+            </div>
+            <div id="active-uploads" class="active-uploads">
+                <!-- Active upload progress bars will be injected here -->
+            </div>
+            <div id="log-output" class="log-output">
+                <div class="log-entry system">Ready to initialize...</div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>
+                v0.0.1 Beta |
+                <a href="https://kuancheen.github.io/md-viewer/?url=https://raw.githubusercontent.com/kuancheen/thermal-sagan/main/README.md"
+                    target="_blank">README</a> |
+                <a href="https://kuancheen.github.io/md-viewer/?url=https://raw.githubusercontent.com/kuancheen/thermal-sagan/main/CHANGELOG.md"
+                    target="_blank">CHANGELOG</a> |
+                &copy; 2025 <a href="https://github.com/kuancheen" target="_blank">Kuan Cheen</a> |
+                <img src="https://hits.sh/kuancheen.github.io/thermal-sagan.svg?view=today-total&style=flat-square&label=%F0%9F%9‘%81%20Views&extraCount=0&color=6366f1"
+                    alt="Hits">
+            </p>
+        </div>
+    </footer>
+
+    <!-- Modal for Thumbnail Blow-up -->
+    <div id="modal" class="modal hidden">
+        <span class="modal-close">&times;</span>
+        <div class="modal-content">
+            <img id="modal-img" src="" alt="Full size preview">
+            <div id="modal-meta" class="modal-meta"></div>
+        </div>
+    </div>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="app.js?v=0.0.1 Beta"></script>
+</body>
+
+</html>
