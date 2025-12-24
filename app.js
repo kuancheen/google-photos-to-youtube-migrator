@@ -1,6 +1,7 @@
+/**
  * Media Migrator - Google Photos to YouTube
-    * v0.1.1 Beta
-        */
+ * v0.1.2 Beta
+ */
 
 const CONFIG = {
     SCOPES: 'https://www.googleapis.com/auth/photoslibrary.readonly https://www.googleapis.com/auth/youtube.upload',

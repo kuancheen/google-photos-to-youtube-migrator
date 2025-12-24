@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2 (Beta)] - 2025-12-24
+### Fixed
+- **Critical Hotfix**: Resolved a syntax error in `app.js` caused by a malformed header comment.
+
 ## [0.1.1 (Beta)] - 2025-12-24
 ### Changed
 - **UI Standardization**: Replaced all remaining native browser pop-ups (specifically for "Reset Settings") with a custom, glassmorphic confirmation modal.
