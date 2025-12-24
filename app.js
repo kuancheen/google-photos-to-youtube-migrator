@@ -44,6 +44,7 @@ class MediaMigrator {
         this.videoCount = document.getElementById('video-count');
         this.selectedCount = document.getElementById('selected-count');
         this.migrateBtn = document.getElementById('migrate-btn');
+        this.resetBtn = document.getElementById('reset-btn');
 
         // Modals
         this.modal = document.getElementById('modal');
@@ -100,6 +101,16 @@ class MediaMigrator {
             this.logOutput.innerHTML = '';
             this.log('Log cleared.');
         });
+
+        // Reset settings button
+        this.resetBtn.addEventListener('click', () => this.resetSettings());
+    }
+
+    resetSettings() {
+        if (confirm('Are you sure you want to clear your Client ID and API Key? You will need to re-enter them.')) {
+            localStorage.clear();
+            location.reload();
+        }
     }
 
     updateUIState() {
@@ -358,7 +369,7 @@ class MediaMigrator {
         }
 
         try {
-            const response = await fetch(`https://photoslibrary.googleapis.com/v1/mediaItems:search?key=${this.apiKey}`, {
+            const response = await fetch('https://photoslibrary.googleapis.com/v1/mediaItems:search', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${this.accessToken}`,
