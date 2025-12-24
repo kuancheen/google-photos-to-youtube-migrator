@@ -359,7 +359,8 @@ class MediaMigrator {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                this.log(`Photos API Error [${response.status}]: ${errorData.error ? errorData.error.message : 'Unknown error'}`, 'error');
+                const errorMsg = errorData.error ? JSON.stringify(errorData.error, null, 2) : 'Unknown error';
+                this.log(`Photos API Error [${response.status}]: <pre>${errorMsg}</pre>`, 'error');
                 console.error('Full Photos API Error:', errorData);
                 return;
             }

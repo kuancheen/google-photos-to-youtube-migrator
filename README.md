@@ -59,8 +59,9 @@ This occurs because your Google Cloud project is in **Testing** mode.
 
 ### Error 403: Forbidden on `mediaItems:search`
 This occurs after login when the app attempts to fetch your photos.
-- **Solution 1: Enable the API**: Ensure the **Photos Library API** is explicitly enabled in the [API Library](https://console.cloud.google.com/apis/library/photoslibrary.googleapis.com).
-- **Solution 2: Check Scope Box**: During the Google login popup, you **must manually check the box** that says "See and download your Google Photos library". If you skip this, the app will log in but won't have permission to see your photos.
+- **Check 1: Enable the API**: Ensure the **Photos Library API** is explicitly enabled in the [API Library](https://console.cloud.google.com/apis/library/photoslibrary.googleapis.com).
+- **Check 2: Tick the Consent Box**: During the Google login popup, you **must manually check the box** that says "See and download your Google Photos library".
+- **Check 3: API Key Restrictions**: In [Credentials](https://console.cloud.google.com/apis/credentials), if your API Key has **"API restrictions"**, ensure "Photos Library API" is included in the allowed list. If it's restricted and Photos isn't added, you'll get a 403.
 
 ## Google API Limitations
 
