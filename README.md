@@ -51,6 +51,12 @@ Navigate to **APIs & Services > Credentials**:
 2.  Click the settings icon (or the connect button if prompted).
 3.  Enter your **Client ID** and **API Key** in the secure custom modals.
 
+## Troubleshooting
+
+### Error 403: access_denied / "App has not completed the Google verification process"
+This occurs because your Google Cloud project is in **Testing** mode (which is recommended for personal use).
+- **Solution**: Go to the **OAuth consent screen** in your [Google Cloud Console](https://console.cloud.google.com/), scroll down to the **Test users** section, and click **+ ADD USERS**. Add your email address (`kuancheen@gmail.com`) and save.
+
 ## Google API Limitations
 
 > [!WARNING]
