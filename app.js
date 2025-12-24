@@ -195,12 +195,18 @@ class MediaMigrator {
                     this.accessToken = response.access_token;
                     this.updateUIState();
                     this.log('Authentication successful!', 'success');
+                    if (response.scope) {
+                        this.log(`Granted permissions: ${response.scope}`, 'system');
+                        if (!response.scope.includes('photoslibrary.readonly')) {
+                            this.log('WARNING: Google Photos permission was NOT granted. Please login again and check the box.', 'error');
+                        }
+                    }
                     this.fetchVideos();
                 },
             });
         }
 
-        this.tokenClient.requestAccessToken({ prompt: 'consent' });
+        this.tokenClient.requestAccessToken({ prompt: 'select_account consent' });
     }
 
     async startMigration() {
