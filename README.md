@@ -5,7 +5,7 @@
 ![Semantic Versioning](https://img.shields.io/badge/semver-2.0.0-blue)
 ![Views](https://hits.sh/kuancheen.github.io/google-photos-to-youtube-migrator.svg?view=today-total&style=flat&label=👁️%20Views&extraCount=0&color=6366f1)
 ![Status](https://img.shields.io/badge/status-active-success)
-![Live Demo](https://img.shields.io/badge/demo-online-green.svg)
+[![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://kuancheen.github.io/google-photos-to-youtube-migrator/)
 
 A premium, modern web application that allows you to seamlessly migrate your videos from Google Photos to YouTube with advanced filtering and batch processing.
 
