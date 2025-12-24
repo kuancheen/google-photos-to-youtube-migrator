@@ -1,6 +1,6 @@
 /**
  * Media Migrator - Google Photos to YouTube
- * v0.1.4 Beta
+ * v0.1.5 Beta
  */
 
 const CONFIG = {
@@ -251,10 +251,10 @@ class MediaMigrator {
                     this.log('Authentication successful!', 'success');
 
                     if (response.scope) {
-                        this.log(`Granted permissions: ${response.scope}`, 'system');
+                        this.log(`Granted permissions: <br><small>${response.scope}</small>`, 'system');
                         if (!response.scope.includes('photoslibrary.readonly')) {
                             this.log('🚨 ERROR: Google Photos permission was NOT granted.', 'error');
-                            this.log('Please login again and manually check the box that says "See and download your Google Photos library".', 'warning');
+                            this.log('<strong>Please click "Connect Google Account" again and manually check ALL boxes in the Google consent screen.</strong>', 'warning');
                             return; // Stop here if scope is missing
                         }
                     } else {
@@ -412,7 +412,7 @@ class MediaMigrator {
         }
 
         try {
-            const response = await fetch(`https://photoslibrary.googleapis.com/v1/mediaItems:search?key=${this.apiKey}`, {
+            const response = await fetch('https://photoslibrary.googleapis.com/v1/mediaItems:search', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${this.accessToken}`,

@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.5 (Beta)] - 2025-12-24
+### Changed
+- **Authentication**: Enhanced scope logging and forced explicitly simpler API requests to debug `insufficient authentication scopes` errors. Removed API Key from search request to rely solely on OAuth token.
+
 ## [0.1.4 (Beta)] - 2025-12-24
 ### Changed
 - **Error Handling**: Added on-screen error modal to display Google API error messages directly to the user for easier troubleshooting.
