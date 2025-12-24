@@ -1,6 +1,6 @@
 /**
  * Media Migrator - Google Photos to YouTube
- * v0.1.9 Beta
+ * v0.2.0 Beta
  */
 
 const CONFIG = {
@@ -190,7 +190,7 @@ class MediaMigrator {
     async showConfirmModal(title, message) {
         return new Promise((resolve) => {
             this.confirmTitle.textContent = title;
-            this.confirmMessage.textContent = message;
+            this.confirmMessage.innerHTML = message;
             this.confirmModal.classList.remove('hidden');
 
             const handleSubmit = () => {
@@ -470,7 +470,15 @@ class MediaMigrator {
                 console.error('Full Photos API Error:', errorData);
 
                 // Show error to user
-                await this.showConfirmModal('API Error', `Google returned an error: ${readableMessage}\n\nCheck the log panel for full details.`);
+                const consoleUrl = 'https://console.cloud.google.com/apis/library/photoslibrary.googleapis.com';
+                await this.showConfirmModal('API Error', `
+                    <strong>Google returned an error:</strong> ${readableMessage}<br><br>
+                    This generic error often means the <strong>Google Photos Library API</strong> is not enabled in your Google Cloud Project.<br><br>
+                    <a href="${consoleUrl}" target="_blank" style="color: #8ab4f8; text-decoration: underline;">👉 Click here to open the Cloud Console</a><br>
+                    1. Ensure you are in the correct Project.<br>
+                    2. Click <strong>ENABLE</strong>.<br>
+                    3. Wait 2 minutes and try again.
+                `);
                 return;
             }
 
