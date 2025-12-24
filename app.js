@@ -1,10 +1,10 @@
 /**
  * Media Migrator - Google Photos to YouTube
- * v0.1.7 Beta
+ * v0.1.8 Beta
  */
 
 const CONFIG = {
-    SCOPES: 'https://www.googleapis.com/auth/photoslibrary https://www.googleapis.com/auth/youtube.upload',
+    SCOPES: 'https://www.googleapis.com/auth/photoslibrary.readonly https://www.googleapis.com/auth/youtube.upload',
     DISCOVERY_DOCS: [
         'https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest',
         'https://photoslibrary.googleapis.com/$discovery/rest?version=v1'
@@ -263,12 +263,46 @@ class MediaMigrator {
                         this.log('Warning: No scope info returned. Proceeding with fetch...', 'warning');
                     }
 
-                    this.fetchVideos();
+                    this.runDiagnostics();
                 },
             });
         }
 
         this.tokenClient.requestAccessToken({ prompt: 'select_account consent' });
+    }
+
+    async runDiagnostics() {
+        this.log('Running diagnostics...', 'system');
+        try {
+            // Check Token Info
+            const infoResp = await fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${this.accessToken}`);
+            const info = await infoResp.json();
+            this.log(`<strong>Token Diagnostics:</strong><br>Audience: ${info.aud}<br>Scopes: ${info.scope}<br>Expires: ${info.exp}`, 'system');
+
+            if (!info.scope.includes('photoslibrary')) {
+                this.log('🚨 DIAGNOSTIC FAIL: Token is missing photoslibrary scope on backend!', 'error');
+            } else {
+                this.log('✅ Token scopes look correct on backend.', 'success');
+            }
+
+            // Try Fetching Albums (Simpler endpoint)
+            this.log('Testing Albums Permissions...');
+            const albumsResp = await fetch('https://photoslibrary.googleapis.com/v1/albums', {
+                headers: { 'Authorization': `Bearer ${this.accessToken}` }
+            });
+
+            if (albumsResp.ok) {
+                this.log('✅ Albums access confirmed. photoslibrary API is working!', 'success');
+            } else {
+                const err = await albumsResp.json();
+                this.log(`❌ Albums fetch failed [${albumsResp.status}]: ${JSON.stringify(err.error)}`, 'error');
+            }
+
+            this.fetchVideos();
+
+        } catch (e) {
+            this.log(`Diagnostics failed: ${e.message}`, 'error');
+        }
     }
 
     async startMigration() {
