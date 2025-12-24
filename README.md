@@ -61,7 +61,8 @@ This occurs because your Google Cloud project is in **Testing** mode.
 This occurs after login when the app attempts to fetch your photos.
 - **Check 1: Enable the API**: Ensure the **Photos Library API** is explicitly enabled in the [API Library](https://console.cloud.google.com/apis/library/photoslibrary.googleapis.com).
 - **Check 2: Tick the Consent Box**: During the Google login popup, you **must manually check the box** that says "See and download your Google Photos library".
-- **Check 3: API Key Restrictions**: In [Credentials](https://console.cloud.google.com/apis/credentials), if your API Key has **"API restrictions"**, ensure "Photos Library API" is included in the allowed list. If it's restricted and Photos isn't added, you'll get a 403.
+- **Check 3: API Key Restrictions**: In [Credentials](https://console.cloud.google.com/apis/credentials), if your API Key has **"API restrictions"**, ensure "Photos Library API" is included in the allowed list.
+- **Check 4: Add Scopes to Consent Screen**: In [OAuth consent screen](https://console.cloud.google.com/apis/credentials/consent), click **"Edit App"** and ensure `.../auth/photoslibrary.readonly` is added to the **"Scopes for Google APIs"** section. If it's not listed there, Google will not show the checkbox to the user.
 
 ## Google API Limitations
 

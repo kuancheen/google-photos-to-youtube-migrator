@@ -195,12 +195,20 @@ class MediaMigrator {
                     this.accessToken = response.access_token;
                     this.updateUIState();
                     this.log('Authentication successful!', 'success');
+
                     if (response.scope) {
                         this.log(`Granted permissions: ${response.scope}`, 'system');
                         if (!response.scope.includes('photoslibrary.readonly')) {
-                            this.log('WARNING: Google Photos permission was NOT granted. Please login again and check the box.', 'error');
+                            this.log('🚨 ERROR: Google Photos permission was NOT granted.', 'error');
+                            this.log('Please login again and manually check the box that says "See and download your Google Photos library".', 'warning');
+                            return; // Stop here if scope is missing
                         }
+                    } else {
+                        // Sometimes response.scope is empty if everything was already granted
+                        // but since we use consent=prompt, it should usually be there.
+                        this.log('Warning: No scope info returned. Proceeding with fetch...', 'warning');
                     }
+
                     this.fetchVideos();
                 },
             });
