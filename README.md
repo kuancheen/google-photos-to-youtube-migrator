@@ -11,27 +11,45 @@ Check out the live demo [here](https://kuancheen.github.io/google-photos-to-yout
 
 A premium, modern web application that allows you to seamlessly migrate your videos from Google Photos to YouTube with advanced filtering and batch processing.
 
-## Features
+## Authentication & API Setup
 
-- **Advanced Filtering**: Filter videos by 1 Day, 7 Days, or 30 Days from your latest or earliest uploads.
-- **Smart Metadata**: Automatically populates YouTube video details based on Google Photos metadata.
-- **Batch Processing**: Select multiple videos and track their upload progress in real-time.
-- **Modern UI**: Sleek, dark-mode dashboard with glassmorphism and smooth animations.
-- **Direct Preview**: View video thumbnails and meta-data before migrating.
+To use this application, you must provide your own Google Cloud credentials. Follow these steps to obtain them:
 
-## Getting Started
+### 1. Create a Google Cloud Project
+1.  Go to the [Google Cloud Console](https://console.cloud.google.com/).
+2.  Create a new project (e.g., "Media Migrator").
 
-### Prerequisites
+### 2. Enable APIs
+Enable the following APIs in your project:
+-   **Photos Library API** (for fetching your videos).
+-   **YouTube Data API v3** (for uploading to your channel).
 
-You will need a Google Cloud Project with the following APIs enabled:
-- Google Photos Library API
-- YouTube Data API v3
+### 3. Configure OAuth Consent Screen
+1.  Navigate to **APIs & Services > OAuth consent screen**.
+2.  Choose **External** (unless you are a Google Workspace user).
+3.  Add the following scopes:
+    -   `.../auth/photoslibrary.readonly`
+    -   `.../auth/youtube.upload`
+4.  **Important**: While in "Testing" mode, you must add your own email address to the **Test users** list.
 
-### Setup
+### 4. Create Credentials
+Navigate to **APIs & Services > Credentials**:
 
-1. Clone the repository.
-2. Host on any static web server (GitHub Pages recommended).
-3. Access the settings panel in the app to configure your `Client ID` and `API Key`.
+-   **OAuth 2.0 Client ID**:
+    1.  Click **Create Credentials > OAuth client ID**.
+    2.  Select **Web application** as the Application type.
+    3.  Under **Authorized JavaScript origins**, add:
+        -   `https://kuancheen.github.io` (for the live demo)
+        -   `http://localhost` (for local development)
+    4.  Copy the **Client ID**.
+-   **API Key**:
+    1.  Click **Create Credentials > API Key**.
+    2.  Copy the **API Key**.
+
+### 5. Configure the App
+1.  Open the [Live Demo](https://kuancheen.github.io/google-photos-to-youtube-migrator/).
+2.  Click the settings icon (or the connect button if prompted).
+3.  Enter your **Client ID** and **API Key** in the secure custom modals.
 
 ## Google API Limitations
 
