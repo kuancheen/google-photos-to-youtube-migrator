@@ -1,10 +1,10 @@
 /**
  * Media Migrator - Google Photos to YouTube
- * v0.1.5 Beta
+ * v0.1.6 Beta
  */
 
 const CONFIG = {
-    SCOPES: 'https://www.googleapis.com/auth/photoslibrary.readonly https://www.googleapis.com/auth/youtube.upload',
+    SCOPES: 'https://www.googleapis.com/auth/photoslibrary https://www.googleapis.com/auth/youtube.upload',
     DISCOVERY_DOCS: [
         'https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest',
         'https://photoslibrary.googleapis.com/$discovery/rest?version=v1'
@@ -252,7 +252,7 @@ class MediaMigrator {
 
                     if (response.scope) {
                         this.log(`Granted permissions: <br><small>${response.scope}</small>`, 'system');
-                        if (!response.scope.includes('photoslibrary.readonly')) {
+                        if (!response.scope.includes('photoslibrary')) {
                             this.log('🚨 ERROR: Google Photos permission was NOT granted.', 'error');
                             this.log('<strong>Please click "Connect Google Account" again and manually check ALL boxes in the Google consent screen.</strong>', 'warning');
                             return; // Stop here if scope is missing
@@ -412,7 +412,7 @@ class MediaMigrator {
         }
 
         try {
-            const response = await fetch('https://photoslibrary.googleapis.com/v1/mediaItems:search', {
+            const response = await fetch(`https://photoslibrary.googleapis.com/v1/mediaItems:search?key=${this.apiKey}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${this.accessToken}`,

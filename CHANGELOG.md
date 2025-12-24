@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.6 (Beta)] - 2025-12-24
+### Changed
+- **Permissions**: Escalated permissions request to full `photoslibrary` scope to bypass potential restrictions on `readonly` scope in test environments.
+- **API Access**: Restored API Key in search requests paired with the new full scope.
+
 ## [0.1.5 (Beta)] - 2025-12-24
 ### Changed
 - **Authentication**: Enhanced scope logging and forced explicitly simpler API requests to debug `insufficient authentication scopes` errors. Removed API Key from search request to rely solely on OAuth token.
