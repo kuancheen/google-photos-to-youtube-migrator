@@ -1,6 +1,6 @@
 /**
  * Media Migrator - Google Photos to YouTube
- * v0.1.3 Beta
+ * v0.1.4 Beta
  */
 
 const CONFIG = {
@@ -428,8 +428,13 @@ class MediaMigrator {
             if (!response.ok) {
                 const errorData = await response.json();
                 const errorMsg = errorData.error ? JSON.stringify(errorData.error, null, 2) : 'Unknown error';
+                const readableMessage = errorData.error?.message || errorData.error?.status || 'Unknown error occurred';
+
                 this.log(`Photos API Error [${response.status}]: <pre>${errorMsg}</pre>`, 'error');
                 console.error('Full Photos API Error:', errorData);
+
+                // Show error to user
+                await this.showConfirmModal('API Error', `Google returned an error: ${readableMessage}\n\nCheck the log panel for full details.`);
                 return;
             }
 
