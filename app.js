@@ -44,17 +44,37 @@ class MediaMigrator {
         this.videoCount = document.getElementById('video-count');
         this.selectedCount = document.getElementById('selected-count');
         this.migrateBtn = document.getElementById('migrate-btn');
+
+        // Modals
         this.modal = document.getElementById('modal');
         this.modalImg = document.getElementById('modal-img');
         this.modalMeta = document.getElementById('modal-meta');
         this.modalClose = document.querySelector('.modal-close');
+
+        this.inputModal = document.getElementById('input-modal');
+        this.inputTitle = document.getElementById('input-modal-title');
+        this.inputField = document.getElementById('input-modal-field');
+        this.inputSubmit = document.getElementById('input-modal-submit');
+        this.inputCancel = document.getElementById('input-modal-cancel');
+        this.inputClose = document.getElementById('input-modal-close');
     }
 
     bindEvents() {
         this.authBtn.addEventListener('click', () => this.handleAuth());
         this.modalClose.addEventListener('click', () => this.closeModal());
+
+        // General modal click-outside
         window.addEventListener('click', (e) => {
             if (e.target === this.modal) this.closeModal();
+            if (e.target === this.inputModal) this.closeInputModal();
+        });
+
+        // Esc key to close modals
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeModal();
+                this.closeInputModal();
+            }
         });
 
         // Filter buttons
@@ -102,6 +122,50 @@ class MediaMigrator {
         this.logOutput.prepend(entry);
     }
 
+    async showInputModal(title, placeholder = '') {
+        return new Promise((resolve) => {
+            this.inputTitle.textContent = title;
+            this.inputField.placeholder = placeholder;
+            this.inputField.value = '';
+            this.inputModal.classList.remove('hidden');
+            this.inputField.focus();
+
+            const handleSubmit = () => {
+                const val = this.inputField.value.trim();
+                if (val) {
+                    cleanup();
+                    resolve(val);
+                }
+            };
+
+            const handleCancel = () => {
+                cleanup();
+                resolve(null);
+            };
+
+            const handleKey = (e) => {
+                if (e.key === 'Enter') handleSubmit();
+            };
+
+            const cleanup = () => {
+                this.inputSubmit.removeEventListener('click', handleSubmit);
+                this.inputCancel.removeEventListener('click', handleCancel);
+                this.inputClose.removeEventListener('click', handleCancel);
+                this.inputField.removeEventListener('keydown', handleKey);
+                this.closeInputModal();
+            };
+
+            this.inputSubmit.addEventListener('click', handleSubmit);
+            this.inputCancel.addEventListener('click', handleCancel);
+            this.inputClose.addEventListener('click', handleCancel);
+            this.inputField.addEventListener('keydown', handleKey);
+        });
+    }
+
+    closeInputModal() {
+        this.inputModal.classList.add('hidden');
+    }
+
     async handleAuth() {
         if (this.accessToken) {
             google.accounts.oauth2.revoke(this.accessToken, () => {
@@ -113,7 +177,7 @@ class MediaMigrator {
         }
 
         if (!this.clientId) {
-            const id = prompt('Please enter your Google OAuth Client ID:');
+            const id = await this.showInputModal('Google OAuth Client ID', 'Enter your Client ID here...');
             if (!id) return;
             this.clientId = id;
             localStorage.setItem('google_client_id', id);
@@ -250,7 +314,7 @@ class MediaMigrator {
         if (!this.accessToken) return;
 
         if (!this.apiKey) {
-            const key = prompt('Please enter your Google API Key:');
+            const key = await this.showInputModal('Google API Key', 'Enter your API Key here...');
             if (!key) return;
             this.apiKey = key;
             localStorage.setItem('google_api_key', key);
