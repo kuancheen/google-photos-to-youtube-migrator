@@ -80,9 +80,19 @@ Automatically run this workflow after:
    - Ensure version numbers are consistent across all files
    - Check that CHANGELOG entries are accurate and complete
 
-7. **Commit and Push to GitHub**:
-   - Stage all modified files: `git add .`
-   - Commit with version message: `git commit -m "chore: bump version to vX.Y.Z"`
-   - **Request user confirmation before pushing**
-   - After confirmation, push to GitHub: `git push origin main`
-   - Optionally create a Git tag: `git tag vX.Y.Z && git push origin vX.Y.Z`
+8. **Rename Global Workflows (Global Repo Only)**:
+    - **Check Context**: If the current repository is `anti-gravity-global-workflows`:
+      - Rename the workflow files to match the new version:
+        ```bash
+        mv new-project-init-vOLD.md new-project-init-vNEW.md
+        mv version-update-vOLD.md version-update-vNEW.md
+        ```
+      - Update the version in the filenames throughout the repository (README, etc.).
+    - If this is a local project repository, skip this step.
+
+9. **Commit and Push to GitHub**:
+    - Stage all modified and renamed files: `git add .`
+    - Commit with version message: `git commit -m "chore: bump version to vX.Y.Z"`
+    - **Request user confirmation before pushing**
+    - After confirmation, push to GitHub: `git push origin main`
+    - Optionally create a Git tag: `git tag vX.Y.Z && git push origin vX.Y.Z`
