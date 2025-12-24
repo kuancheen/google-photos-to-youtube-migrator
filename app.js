@@ -357,6 +357,13 @@ class MediaMigrator {
                 })
             });
 
+            if (!response.ok) {
+                const errorData = await response.json();
+                this.log(`Photos API Error [${response.status}]: ${errorData.error ? errorData.error.message : 'Unknown error'}`, 'error');
+                console.error('Full Photos API Error:', errorData);
+                return;
+            }
+
             const data = await response.json();
 
             if (!data.mediaItems) {
