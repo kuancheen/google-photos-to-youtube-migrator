@@ -1,6 +1,6 @@
 /**
  * Media Migrator - Google Photos to YouTube
- * v1.0.0
+ * v0.0.2 Beta
  */
 
 const CONFIG = {
