@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.9 (Beta)] - 2025-12-24
+### Changed
+- **Scopes**: Removed redundant `photoslibrary.readonly` scope, requesting only the primary `photoslibrary` scope to avoid potential conflicts.
+- **Diagnostics**: Added specific guidance to check if the API is explicitly enabled in the Google Cloud Console when scope checks pass but requests fail.
+
 ## [0.1.8 (Beta)] - 2025-12-24
 ### Added
 - **Diagnostics**: Implemented a self-diagnostic routine that verifies the OAuth token against Google's `tokeninfo` endpoint and tests access to the `albums` API to pinpoint permission issues.

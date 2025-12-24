@@ -1,10 +1,10 @@
 /**
  * Media Migrator - Google Photos to YouTube
- * v0.1.8 Beta
+ * v0.1.9 Beta
  */
 
 const CONFIG = {
-    SCOPES: 'https://www.googleapis.com/auth/photoslibrary.readonly https://www.googleapis.com/auth/youtube.upload',
+    SCOPES: 'https://www.googleapis.com/auth/photoslibrary https://www.googleapis.com/auth/youtube.upload',
     DISCOVERY_DOCS: [
         'https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest',
         'https://photoslibrary.googleapis.com/$discovery/rest?version=v1'
@@ -296,6 +296,8 @@ class MediaMigrator {
             } else {
                 const err = await albumsResp.json();
                 this.log(`❌ Albums fetch failed [${albumsResp.status}]: ${JSON.stringify(err.error)}`, 'error');
+                this.log('<strong>CRITICAL:</strong> If scopes are correct but this fails, the API is likely NOT ENABLED.', 'error');
+                this.log('Go to Google Cloud Console > APIs & Services > Enabled APIs & Services, click "+ ENABLE APIS AND SERVICES", search for "Google Photos Library API" and enable it.', 'warning');
             }
 
             this.fetchVideos();
