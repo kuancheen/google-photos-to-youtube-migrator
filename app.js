@@ -1,6 +1,6 @@
 /**
  * Media Migrator - Google Photos to YouTube
- * v0.2.0 Beta
+ * v0.2.1 Beta
  */
 
 const CONFIG = {
@@ -417,12 +417,6 @@ class MediaMigrator {
     async fetchVideos(append = false) {
         if (!this.accessToken) return;
 
-        if (!this.apiKey) {
-            const key = await this.showInputModal('Google API Key', 'Enter your API Key here...');
-            if (!key) return;
-            this.apiKey = key;
-            localStorage.setItem('google_api_key', key);
-        }
 
         this.log(append ? 'Loading more videos...' : 'Fetching videos from Google Photos...');
 
