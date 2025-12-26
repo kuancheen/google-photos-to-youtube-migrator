@@ -1,10 +1,10 @@
 /**
  * Media Migrator - Google Photos to YouTube
- * v0.2.6 Beta
+ * v0.2.7 Beta
  */
 
 const CONFIG = {
-    SCOPES: 'https://www.googleapis.com/auth/photoslibrary.readonly https://www.googleapis.com/auth/userinfo.email',
+    SCOPES: 'https://www.googleapis.com/auth/photoslibrary.readonly https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/userinfo.email',
     DISCOVERY_DOCS: [
         'https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest',
         'https://photoslibrary.googleapis.com/$discovery/rest?version=v1'
@@ -285,6 +285,17 @@ class MediaMigrator {
                 this.log('🚨 DIAGNOSTIC FAIL: Token is missing photoslibrary scope on backend!', 'error');
             } else {
                 this.log('✅ Token scopes look correct on backend.', 'success');
+            }
+
+            // Test Baseline API Access (UserInfo)
+            this.log('Testing Baseline API Access (UserInfo)...');
+            const userResp = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                headers: { 'Authorization': `Bearer ${this.accessToken}` }
+            });
+            if (userResp.ok) {
+                this.log('✅ Baseline API access confirmed. Token is valid and functional.', 'success');
+            } else {
+                this.log(`❌ Baseline API failed [${userResp.status}]. THE TOKEN IS BROKEN/INVALID.`, 'error');
             }
 
             // Try Fetching Albums (Simpler endpoint)

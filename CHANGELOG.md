@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.7 (Beta)] - 2025-12-26
+### Changed
+- **Troubleshooting**: Restored `youtube.upload` scope (as removal didn't solve the Photos issue) and added a "Baseline API Check".
+- **Diagnostics**: Now attempts to fetch the user's profile from the `userinfo` endpoint. If this works, the OAuth token is valid, confirming the issue is specific to the Photos API. If this fails, the entire token/project configuration is invalid.
+
 ## [0.2.6 (Beta)] - 2025-12-26
 ### Changed
 - **Troubleshooting**: Temporarily removed `youtube.upload` scope to isolate the Google Photos connection. This is to test if combining multiple API scopes on a fresh, billing-less project is causing the token rejection.
