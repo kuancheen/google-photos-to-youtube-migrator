@@ -1,9 +1,41 @@
-# Changelog
+Migration Status
+Clear Log
+[17:39:32] Photos API Error [403]:
+{
+  "code": 403,
+  "message": "Request had insufficient authentication scopes.",
+  "status": "PERMISSION_DENIED"
+}
+[17:39:31] Fetching videos from Google Photos...
+[17:39:31] Go to Google Cloud Console > APIs & Services > Enabled APIs & Services, click "+ ENABLE APIS AND SERVICES", search for "Google Photos Library API" and enable it.
+[17:39:31] CRITICAL: If scopes are correct but this fails, the API is likely NOT ENABLED.
+[17:39:31] ❌ Albums fetch failed [403]: {"code":403,"message":"Request had insufficient authentication scopes.","status":"PERMISSION_DENIED"}
+[17:39:30] Testing Albums Permissions...
+[17:39:30] ✅ Baseline API access confirmed. Token is valid and functional.
+[17:39:30] Testing Baseline API Access (UserInfo)...
+[17:39:30] ✅ Token scopes look correct on backend.
+[17:39:30] 👉 ACTION CHECK: Does the email above match your "Test Users" list EXACTLY?
+[17:39:30] Token Diagnostics:
+Email: kuancheen@gmail.com
+Audience: 1083173128138-q331knp5h2n1f2efantse0g4pv66nmn8.apps.googleusercontent.com
+Scopes: https://www.googleapis.com/auth/photoslibrary.readonly https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/youtube.upload openid
+Expires: 1766745569
+[17:39:30] Running diagnostics...
+[17:39:30] Granted permissions:
+email https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/userinfo.email openid https://www.googleapis.com/auth/photoslibrary.readonly
+[17:39:30] Authentication successful!
+[17:39:16] System initialized.
+Ready to initialize...# Changelog
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.2.13 (Beta)] - 2025-12-26
+### Changed
+- **Troubleshooting**: Escalated to the full `photoslibrary` scope (Read/Write) to bypass potential restrictions on the `readonly` scope for new/unverified projects.
+- **Config**: Added explicit logging of the *requested* scopes on initialization to verify that the app is running the correct version and config.
 
 ## [0.2.12 (Beta)] - 2025-12-26
 ### Changed
