@@ -32,6 +32,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.14 (Beta)] - 2025-12-26
+### Changed
+- **Troubleshooting**: Reverted to `photoslibrary.readonly` scope. The "Full Access" experiment confirmed that scope escalation does not bypass the 403 error. Now that we have a valid API Key (which we didn't have during the first `readonly` test), we are re-testing the `readonly` scope as the most compliant configuration for an unverified app.
+
 ## [0.2.13 (Beta)] - 2025-12-26
 ### Changed
 - **Troubleshooting**: Escalated to the full `photoslibrary` scope (Read/Write) to bypass potential restrictions on the `readonly` scope for new/unverified projects.
