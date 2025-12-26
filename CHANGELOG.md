@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.4 (Beta)] - 2025-12-26
+### Added
+- **Scopes**: Added `https://www.googleapis.com/auth/userinfo.email` to the requested scopes. This ensures the OAuth token contains the user's email address, allowing the diagnostic tool to verify identity and ensuring the Google Cloud "Test User" check functions correctly.
+
 ## [0.2.3 (Beta)] - 2025-12-26
 ### Added
 - **Diagnostics**: Added `email` verification to the diagnostic tool to help users identify potential mismatches between the logged-in account and the project's "Test Users" whitelist.
