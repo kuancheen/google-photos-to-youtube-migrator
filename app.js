@@ -1,6 +1,6 @@
 /**
  * Media Migrator - Google Photos to YouTube
- * v0.2.15 Beta
+ * v0.2.16 Beta
  */
 
 const CONFIG = {
@@ -347,7 +347,31 @@ class MediaMigrator {
                 this.log(`❌ Method B Failed [${testB.status}]: ${JSON.stringify(errB.error)}`, 'error');
 
                 this.log('<strong>CRITICAL FAILURE:</strong> Both auth methods failed.', 'error');
-                this.log('This confirms the issue is SERVER-SIDE (Google Cloud Project Configuration).', 'warning');
+
+                const projectNumber = this.clientId.split('-')[0];
+
+                await this.showConfirmModal('⚠️ Configuration Audit Required', `
+                    <strong>The connection failed regardless of the method used.</strong><br>
+                    This guarantees the issue is in the <strong>Google Cloud Console Configuration</strong>, not the code.<br><br>
+                    <strong>Please verify these 3 things (in order):</strong><br><br>
+
+                    <strong>1. API Key Restrictions (Most Likely)</strong><br>
+                    Your API Key might be restricted to <em>other</em> APIs (like YouTube) but NOT Google Photos.<br>
+                    <a href="https://console.cloud.google.com/apis/credentials/key/${this.apiKey}?project=${projectNumber}" target="_blank">👉 Click here to check API Key Settings</a><br>
+                    Ensure <strong>"API restrictions"</strong> is set to "Don't restrict key" OR "Google Photos Library API" is explicitly selected.<br><br>
+
+                    <strong>2. Wrong API Enabled</strong><br>
+                    You might have enabled "Google Photos Picker API" instead of "Library API".<br>
+                    <a href="https://console.cloud.google.com/apis/library/photoslibrary.googleapis.com?project=${projectNumber}" target="_blank">👉 Click here to check Library API</a><br>
+                    It MUST say "Google Photos Library API". If it says "ENABLE", click it.<br><br>
+
+                    <strong>3. User Verification</strong><br>
+                    Since your app is in "Testing" mode, you MUST be in the "Test users" list.<br>
+                    <a href="https://console.cloud.google.com/apis/credentials/consent?project=${projectNumber}" target="_blank">👉 Click here to check Test Users</a><br>
+                    Ensure <strong>kuancheen@gmail.com</strong> is listed.
+                `);
+
+                return; // HALT HERE. Do not proceed to fetchVideos.
             }
 
             this.fetchVideos();

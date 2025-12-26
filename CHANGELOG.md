@@ -32,6 +32,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.16 (Beta)] - 2025-12-27
+### Added
+- **Configuration Audit**: Added a specific "Double Failure" modal. If both API Key transmission methods fail, the app now halts and provides a strict 3-point checklist to verify Google Cloud Console settings (API restrictions, Library vs Picker API, Test Users).
+
 ## [0.2.15 (Beta)] - 2025-12-27
 ### Added
 - **Diagnostics**: Implemented Permutation Testing for API connection (testing both URL-based and Header-based API Key transmission).
