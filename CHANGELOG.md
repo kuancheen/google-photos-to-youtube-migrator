@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.5 (Beta)] - 2025-12-26
+### Changed
+- **Troubleshooting**: Enhanced the Error Modal to extract the specific Project ID from the current Client ID and generate a deep link to the Google Cloud Console. This ensures the user is checking the API enablement status for the *correct* project, ruling out multi-project confusion.
+
 ## [0.2.4 (Beta)] - 2025-12-26
 ### Added
 - **Scopes**: Added `https://www.googleapis.com/auth/userinfo.email` to the requested scopes. This ensures the OAuth token contains the user's email address, allowing the diagnostic tool to verify identity and ensuring the Google Cloud "Test User" check functions correctly.
