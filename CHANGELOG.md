@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.10 (Beta)] - 2025-12-26
+### Changed
+- **Config**: Restored the prompt for the **API Key** on initialization. Since diagnostics confirmed that the API Key is strictly required to link requests to the correct Quota Project (resolving 403 errors), the app now ensures the user provides one if it's missing from `localStorage`.
+
 ## [0.2.9 (Beta)] - 2025-12-26
 ### Changed
 - **Troubleshooting**: Enhanced error handling to explicitly catch `API_KEY_INVALID` errors. The modal now provides direct instructions to generate a new API Key in the correct project, identifying this as a potential root cause for "Insufficient Scope" errors (via failed quota project linkage).
