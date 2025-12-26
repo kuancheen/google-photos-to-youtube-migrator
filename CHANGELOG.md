@@ -32,6 +32,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.15 (Beta)] - 2025-12-27
+### Added
+- **Diagnostics**: Implemented Permutation Testing for API connection (testing both URL-based and Header-based API Key transmission).
+- **Core Fix**: Added `X-Goog-Api-Key` header to all Photos API requests as a fail-safe.
+- **Troubleshooting**: Enhanced logging to distinguish between method failures.
+
 ## [0.2.14 (Beta)] - 2025-12-26
 ### Changed
 - **Troubleshooting**: Reverted to `photoslibrary.readonly` scope. The "Full Access" experiment confirmed that scope escalation does not bypass the 403 error. Now that we have a valid API Key (which we didn't have during the first `readonly` test), we are re-testing the `readonly` scope as the most compliant configuration for an unverified app.

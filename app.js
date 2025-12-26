@@ -1,6 +1,6 @@
 /**
  * Media Migrator - Google Photos to YouTube
- * v0.2.14 Beta
+ * v0.2.15 Beta
  */
 
 const CONFIG = {
@@ -320,19 +320,34 @@ class MediaMigrator {
                 this.log(`❌ Baseline API failed [${userResp.status}]. THE TOKEN IS BROKEN/INVALID.`, 'error');
             }
 
-            // Try Fetching Albums (Simpler endpoint)
-            this.log('Testing Albums Permissions...');
-            const albumsResp = await fetch(`https://photoslibrary.googleapis.com/v1/albums?key=${this.apiKey}`, {
+            // Test Albums Permissions - PERMUTATION TEST
+            this.log('Testing Albums Permissions (Protocol Permutations)...', 'system');
+
+            // Method A: Bearer + Key in URL
+            const testA = await fetch(`https://photoslibrary.googleapis.com/v1/albums?pageSize=1&key=${this.apiKey}`, {
                 headers: { 'Authorization': `Bearer ${this.accessToken}` }
             });
 
-            if (albumsResp.ok) {
-                this.log('✅ Albums access confirmed. photoslibrary API is working!', 'success');
+            // Method B: Bearer + Key in Header
+            const testB = await fetch(`https://photoslibrary.googleapis.com/v1/albums?pageSize=1`, {
+                headers: {
+                    'Authorization': `Bearer ${this.accessToken}`,
+                    'X-Goog-Api-Key': this.apiKey
+                }
+            });
+
+            if (testA.ok) {
+                this.log('✅ Albums Access verified (Method A: Key in URL).', 'success');
+            } else if (testB.ok) {
+                this.log('✅ Albums Access verified (Method B: Key in Header).', 'success');
             } else {
-                const err = await albumsResp.json();
-                this.log(`❌ Albums fetch failed [${albumsResp.status}]: ${JSON.stringify(err.error)}`, 'error');
-                this.log('<strong>CRITICAL:</strong> If scopes are correct but this fails, the API is likely NOT ENABLED.', 'error');
-                this.log('Go to Google Cloud Console > APIs & Services > Enabled APIs & Services, click "+ ENABLE APIS AND SERVICES", search for "Google Photos Library API" and enable it.', 'warning');
+                const errA = await testA.json();
+                this.log(`❌ Method A Failed [${testA.status}]: ${JSON.stringify(errA.error)}`, 'error');
+                const errB = await testB.json();
+                this.log(`❌ Method B Failed [${testB.status}]: ${JSON.stringify(errB.error)}`, 'error');
+
+                this.log('<strong>CRITICAL FAILURE:</strong> Both auth methods failed.', 'error');
+                this.log('This confirms the issue is SERVER-SIDE (Google Cloud Project Configuration).', 'warning');
             }
 
             this.fetchVideos();
@@ -481,7 +496,8 @@ class MediaMigrator {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${this.accessToken}`,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-Goog-Api-Key': this.apiKey
                 },
                 body: JSON.stringify({
                     pageSize: 25,
