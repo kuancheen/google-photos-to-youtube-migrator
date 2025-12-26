@@ -1,6 +1,6 @@
 /**
  * Media Migrator - Google Photos to YouTube
- * v0.2.7 Beta
+ * v0.2.8 Beta
  */
 
 const CONFIG = {
@@ -300,7 +300,7 @@ class MediaMigrator {
 
             // Try Fetching Albums (Simpler endpoint)
             this.log('Testing Albums Permissions...');
-            const albumsResp = await fetch('https://photoslibrary.googleapis.com/v1/albums', {
+            const albumsResp = await fetch(`https://photoslibrary.googleapis.com/v1/albums?key=${this.apiKey}`, {
                 headers: { 'Authorization': `Bearer ${this.accessToken}` }
             });
 
