@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.12 (Beta)] - 2025-12-26
+### Changed
+- **Troubleshooting**: Removed `youtube.upload` scope (again). Now that the API Key (Quota Project) is correctly identified, we are testing if the *presence* of the billing-heavy YouTube scope is causing "Insufficient Scope" errors for the shared token on the Photos API.
+
 ## [0.2.11 (Beta)] - 2025-12-26
 ### Fixed
 - **Code Application**: Re-applied the logic fixes for **API Key Prompt** and **API_KEY_INVALID Handler**. Previous deployment (v0.2.10) failed to apply these changes to the source code despite the version bump.
