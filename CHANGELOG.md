@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2 (Beta)] - 2025-12-25
+### Changed
+- **Scopes**: Reverted to `photoslibrary.readonly` to test if the full "Write" scope was causing the 403 blocks on new projects.
+
 ## [0.2.1 (Beta)] - 2025-12-25
 ### Fixed
 - **Logic**: Removed the legacy code block that prompted users for an API Key, ensuring the app now relies purely on OAuth 2.0 as intended.
