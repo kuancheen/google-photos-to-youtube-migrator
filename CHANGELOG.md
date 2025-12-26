@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.11 (Beta)] - 2025-12-26
+### Fixed
+- **Code Application**: Re-applied the logic fixes for **API Key Prompt** and **API_KEY_INVALID Handler**. Previous deployment (v0.2.10) failed to apply these changes to the source code despite the version bump.
+- **Config**: The app now properly pauses during initialization to request missing Client ID and API Key credentials.
+
 ## [0.2.10 (Beta)] - 2025-12-26
 ### Changed
 - **Config**: Restored the prompt for the **API Key** on initialization. Since diagnostics confirmed that the API Key is strictly required to link requests to the correct Quota Project (resolving 403 errors), the app now ensures the user provides one if it's missing from `localStorage`.

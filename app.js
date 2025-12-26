@@ -1,6 +1,6 @@
 /**
  * Media Migrator - Google Photos to YouTube
- * v0.2.10 Beta
+ * v0.2.11 Beta
  */
 
 const CONFIG = {
@@ -24,11 +24,32 @@ class MediaMigrator {
         this.init();
     }
 
-    init() {
+    async init() {
         this.cacheDom();
         this.bindEvents();
+
+        // Check for Client ID
+        if (!this.clientId) {
+            this.clientId = await this.showInputModal('Enter Client ID', 'Please enter your Google Cloud Client ID:');
+            if (this.clientId) {
+                localStorage.setItem('google_client_id', this.clientId.trim());
+            } else {
+                this.log('Client ID is required.', 'error');
+            }
+        }
+
+        // Check for API Key
+        if (!this.apiKey) {
+            this.apiKey = await this.showInputModal('Enter API Key', 'Please enter your Google Cloud API Key (Required for Quota):');
+            if (this.apiKey) {
+                localStorage.setItem('google_api_key', this.apiKey.trim());
+            } else {
+                this.log('API Key is required.', 'error');
+            }
+        }
+
         this.updateUIState();
-        this.log('System initialized. Please ensure Client ID and API Key are set in settings.');
+        this.log('System initialized.');
     }
 
     cacheDom() {
@@ -479,6 +500,20 @@ class MediaMigrator {
                 // Show error to user
                 const projectNumber = this.clientId.split('-')[0];
                 const deepLink = `https://console.cloud.google.com/apis/library/photoslibrary.googleapis.com?project=${projectNumber}`;
+
+                if (readableMessage.includes('API key not valid') || readableMessage.includes('API_KEY_INVALID')) {
+                    await this.showConfirmModal('Invalid API Key', `
+                        <strong>The API Key is invalid.</strong><br><br>
+                        The "Smoking Gun" has been found! 🔫<br>
+                        Your API Key was rejected by Google. This breaks the link to your Project, causing the "Insufficient Scopes" errors.<br><br>
+                        <strong>Fix:</strong><br>
+                        1. Go to <a href="https://console.cloud.google.com/apis/credentials?project=${projectNumber}" target="_blank">Credentials (Project ${projectNumber})</a>.<br>
+                        2. Click <strong>+ CREATE CREDENTIALS</strong> > <strong>API key</strong>.<br>
+                        3. Copy the NEW key.<br>
+                        4. Click "Reset Settings" in this app and enter the new key.
+                    `);
+                    return;
+                }
 
                 await this.showConfirmModal('API Error', `
                     <strong>Google returned an error:</strong> ${readableMessage}<br><br>
