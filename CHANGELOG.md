@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.6 (Beta)] - 2025-12-26
+### Changed
+- **Troubleshooting**: Temporarily removed `youtube.upload` scope to isolate the Google Photos connection. This is to test if combining multiple API scopes on a fresh, billing-less project is causing the token rejection.
+
 ## [0.2.5 (Beta)] - 2025-12-26
 ### Changed
 - **Troubleshooting**: Enhanced the Error Modal to extract the specific Project ID from the current Client ID and generate a deep link to the Google Cloud Console. This ensures the user is checking the API enablement status for the *correct* project, ruling out multi-project confusion.
