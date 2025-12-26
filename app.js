@@ -1,6 +1,6 @@
 /**
  * Media Migrator - Google Photos to YouTube
- * v0.2.2 Beta
+ * v0.2.3 Beta
  */
 
 const CONFIG = {
@@ -277,7 +277,9 @@ class MediaMigrator {
             // Check Token Info
             const infoResp = await fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${this.accessToken}`);
             const info = await infoResp.json();
-            this.log(`<strong>Token Diagnostics:</strong><br>Audience: ${info.aud}<br>Scopes: ${info.scope}<br>Expires: ${info.exp}`, 'system');
+            this.log(`<strong>Token Diagnostics:</strong><br>Email: <strong>${info.email}</strong><br>Audience: ${info.aud}<br>Scopes: ${info.scope}<br>Expires: ${info.exp}`, 'system');
+
+            this.log('👉 <strong>ACTION CHECK:</strong> Does the email above match your "Test Users" list EXACTLY?', 'warning');
 
             if (!info.scope.includes('photoslibrary')) {
                 this.log('🚨 DIAGNOSTIC FAIL: Token is missing photoslibrary scope on backend!', 'error');
