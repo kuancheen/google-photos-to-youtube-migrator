@@ -1,6 +1,6 @@
 /**
  * Media Migrator - Google Photos to YouTube
- * v0.2.16 Beta
+ * v0.2.17 Beta
  */
 
 const CONFIG = {
@@ -355,10 +355,12 @@ class MediaMigrator {
                     This guarantees the issue is in the <strong>Google Cloud Console Configuration</strong>, not the code.<br><br>
                     <strong>Please verify these 3 things (in order):</strong><br><br>
 
-                    <strong>1. API Key Restrictions (Most Likely)</strong><br>
-                    Your API Key might be restricted to <em>other</em> APIs (like YouTube) but NOT Google Photos.<br>
-                    <a href="https://console.cloud.google.com/apis/credentials/key/${this.apiKey}?project=${projectNumber}" target="_blank">👉 Click here to check API Key Settings</a><br>
-                    Ensure <strong>"API restrictions"</strong> is set to "Don't restrict key" OR "Google Photos Library API" is explicitly selected.<br><br>
+                    <strong>1. API Key Restrictions (Check Carefully)</strong><br>
+                    Your API Key might be restricted to specific websites (HTTP Referrers) or specific APIs.<br>
+                    <a href="https://console.cloud.google.com/apis/credentials?project=${projectNumber}" target="_blank">👉 Click here to open Credentials List</a><br>
+                    Find your key (ending in ...${this.apiKey.slice(-4)}), click the <strong>Pencil Icon</strong>, and ensure:<br>
+                    - Application restrictions: None (or matches your URL)<br>
+                    - API restrictions: "Don't restrict key" OR "Google Photos Library API" is selected.<br><br>
 
                     <strong>2. Wrong API Enabled</strong><br>
                     You might have enabled "Google Photos Picker API" instead of "Library API".<br>
